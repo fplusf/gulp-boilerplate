@@ -1,0 +1,54 @@
+::placeholder
+    color: $twilight !important
+
+// :-ms-input-placeholder
+//     color: $twilight !important
+
+// ::-ms-input-placeholder
+//     color: $twilight !important
+
+::selection
+    background-color: transparentize($primary, .2)
+    color: #fff
+
+html
+    scroll-behavior: smooth
+    // user-select: none
+
+body
+    font-family: Roboto
+    line-height: 1.6
+    color: $night
+    background-color: $midday
+    +respond-to(phone-land)
+        background-color: #fff
+
+    * 
+        outline: none !important
+
+a
+    color: $primary
+    transition: border-bottom $transition-duration $transition-easing, color $transition-duration $transition-easing, background-color $transition-duration $transition-easing
+
+    &:hover
+        text-decoration: none
+        color: darken($primary, 10%)
+
+    &.link
+        border-bottom: 1px dashed darken($primary, 10%)
+
+        &:hover
+            border-bottom-color: transparent
+
+label
+    margin-bottom: 0
+
+button
+    outline: none !important
+
+input
+    color: $night
+    background-color: transparent !important
+
+mat-panel-title.text-truncate
+    display: block

@@ -1,0 +1,27 @@
+.text
+    &-muted
+        color: $twilight !important
+
+    &-truncate
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+
+.form-row
+    display: flex
+    flex-wrap: wrap
+    margin-right: -7.5px
+    margin-left: -7.5px
+
+    >.col, 
+    >[class*=col-]
+        padding-right: 7.5px
+        padding-left: 7.5px
+
+.no-data
+    color: $twilight
+    text-align: center
+    margin: 0
+
+small
+    font-size: 90%
