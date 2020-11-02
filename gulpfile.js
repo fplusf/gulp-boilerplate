@@ -10,6 +10,7 @@ const groupMQ = require('gulp-group-css-media-queries');
 const sourcemaps = require('gulp-sourcemaps');
 const cleanCSS = require('gulp-clean-css');
 const del = require('del');
+const { stream } = require('browser-sync');
 
 function copyAssets() {
     return src('./src/assets/**/*').pipe(dest('dist/assets/'));
@@ -25,9 +26,7 @@ function compileEJS() {
 
 // Copy JS files to dist.
 function concatCustomJS() {
-    return src('./src/js/*.js')
-        .pipe(concat('main.js'))
-        .pipe(dest('dist/js/'));
+    return src('./src/js/*.js').pipe(concat('main.js')).pipe(dest('dist/js/'));
 }
 
 // Concat JS libs to single file, minify and copy to dist.
@@ -57,6 +56,7 @@ function compileCustomSass() {
         .pipe(groupMQ())
         .pipe(sourcemaps.write('maps'))
         .pipe(dest('./dist/css'))
+        .pipe(browserSync.stream());
 }
 
 // Remove dist.
@@ -71,15 +71,9 @@ function watchFiles() {
             baseDir: 'dist/',
         },
     });
-    watch('src/assets/styles/**/*', compileCustomSass).on(
-        'change',
-        browserSync.stream
-    );
-    watch('src/assets/js/**/*', concatCustomJS).on('change', browserSync.reload);
-    watch(
-        ['src/**/*.ejs'],
-        compileEJS
-    ).on('change', browserSync.reload);
+    watch(['src/styles/**/*', 'src/layout/**/*.sass'], compileCustomSass)
+    watch('src/js/**/*', concatCustomJS).on('change', browserSync.reload);
+    watch(['src/**/*.ejs'], compileEJS).on('change', browserSync.reload);
 }
 
 // Default 'gulp' command with start local server and watch files for changes.
